@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+					  "http://www.w3.org/TR/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/WEB-INF/templates/mainPage.xhtml">
+		<ui:define name="title">
+			<h:outputText value="${msg['main.title']}"  />
+		</ui:define>
+			
+		<ui:define name="mainContent">
+			<div id="mainContainer" class="mainContainer">
+				<div id="leftContainer" class="leftContainer">
+					<p:commandLink action="saludo" value="Unknow transition"  />
+				</div>
+					
+				<div id="centerContainer" class="centerContainer">
+					<h:form>
+						<h:commandLink action="volver" value="Inicio" />
+					</h:form>
+				</div>
+					
+				<div id="rightContainer" class="rightContainer">
+					<div id="random">if you click on'Unknow Transition' work properly, but if you click several times and then click on 'Inicio' usually doesn't work at first click and you must click again</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

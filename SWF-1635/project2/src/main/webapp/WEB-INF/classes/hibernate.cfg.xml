@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+		
+<hibernate-configuration>
+	<session-factory>
+		<!-- hibernate configuration properties -->
+		
+		<property name="hibernate.dialect">${dialect}</property>
+		<property name="hibernate.show_sql">${showSql}</property>
+		<property name="hibernate.format_sql">${formatSql}</property>
+		<property name="hibernate.default_schema">${schema}</property>
+		<property name="hibernate.hbm2ddl.auto">${hbm2ddl}</property>
+		<property name="hibernate.max_fetch_depth">${max.fetch.depth}</property>
+		<property name="hibernate.default_batch_fetch_size">${batch.fetch}</property>
+		<property name="hibernate.default_entity_mode">${entity.mode}</property>
+		<property name="hibernate.generate_statistics">${generate.statistics}</property>
+		<property name="hibernate.use_sql_comments">${sqlComments}</property>
+		<property name="hibernate.connection.autocommit">${autocommit}</property> 
+		
+		<!-- c3p0 configuration properties -->
+		
+		<property name="hibernate.c3p0.minPoolSize">${c3p0.minSize}</property> 
+		<property name="hibernate.c3p0.maxPoolSize">${c3p0.maxSize}</property>
+		<property name="hibernate.c3p0.acquireIncrement">${c3p0.acquireIncrement}</property>
+		<property name="hibernate.c3p0.initialPoolSize">${c3p0.initialPoolSize}</property>
+		<property name="hibernate.c3p0.maxIdleTime">${c3p0.maxIdleTime}</property>
+		<property name="hibernate.c3p0.maxIdleTimeExcessConnections">${c3p0.maxIdleTimeExcessConnections}</property>
+		<property name="hibernate.c3p0.maxStatements">${c3p0.maxStatements}</property>
+		
+	               
+	   <!-- Hibernate cache properties -->
+	   
+	   <property name="hibernate.cache.region.factory_class">${region.factory}</property>
+		<property name="hibernate.cache.use_second_level_cache">${second.level}</property>
+		<property name="hibernate.cache.use_query_cache">${use.query}</property>
+	   <property name="hibernate.cache.use_structured_entries">${cache.use.structured.entries}</property>
+	</session-factory>
+</hibernate-configuration>

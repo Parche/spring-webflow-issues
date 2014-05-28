@@ -1,0 +1,145 @@
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    metadata-complete="true">
+		
+
+	<!-- Spring security filter-->
+	
+	<filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+	 
+    <filter-mapping>
+      <filter-name>springSecurityFilterChain</filter-name>
+      <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+    </filter-mapping>	
+
+   <filter>
+		 <filter-name>PrimeFaces FileUpload Filter</filter-name>
+	  	 <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+		 <init-param>
+			 <param-name>thresholdSize</param-name>
+			 <param-value>500000</param-value>
+		 </init-param>
+  </filter>
+  <filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+	</filter-mapping>
+	
+	
+	<filter>
+	    <filter-name>encodingFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	        <param-name>encoding</param-name>
+	        <param-value>UTF-8</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>forceEncoding</param-name>
+	        <param-value>true</param-value>
+	    </init-param>
+	</filter>
+	
+	<filter-mapping>
+	    <filter-name>encodingFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+<!-- Spring social filter -->
+	
+ 	<filter>
+	    <filter-name>hiddenHttpMethodFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+   	</filter>
+
+   	<filter-mapping>
+	    <filter-name>hiddenHttpMethodFilter</filter-name>
+	    <url-pattern>/connect/*</url-pattern>
+   	</filter-mapping>
+   
+ <!-- Support for Etags, detecting change at a given url -->
+	
+ 	<filter>
+		<filter-name>etagFilter</filter-name>
+		<filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>etagFilter</filter-name>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+	</filter-mapping>
+
+
+	<!-- Bootstrap the root application context as usual using ContextLoaderListener -->
+	
+	<listener>	
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+   
+	<!-- Servlet 2.4+ web container with request processed outside Spring's DispatcherServlet -->
+	
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	
+	<!-- Spring Security updated about session lifecycle events -->
+	
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+		
+	<servlet>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/servlet-context.xml</param-value>
+		</init-param>
+		<init-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>${spring.profile}</param-value>
+    	</init-param>
+			<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<url-pattern>/spring/*</url-pattern>
+	</servlet-mapping>
+	
+<!-- Just here so the JSF implementation can initialize, *not* used at runtime -->
+	
+	<servlet>
+	    <servlet-name>facesServlet</servlet-name>
+	    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>facesServlet</servlet-name>
+	    <url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	
+<!-- Forbidden direct access XHTML files -->
+
+ 	<security-constraint>
+    	<display-name>Restrict direct access to XHTML access</display-name>
+    	<web-resource-collection>
+        <web-resource-name>XHTML</web-resource-name>
+        <url-pattern>*.xhtml</url-pattern>
+    	</web-resource-collection>
+    	<auth-constraint />
+	</security-constraint>
+
+<!-- Forbidden resources -->
+
+<!-- 	<security-constraint>
+    	<display-name>Restrict direct access to JSF resources</display-name>
+    	<web-resource-collection>
+        <web-resource-name>JSF resources</web-resource-name>
+        <url-pattern>/resources/*</url-pattern>
+    	</web-resource-collection>
+    	<auth-constraint />
+	</security-constraint>  -->
+</web-app>

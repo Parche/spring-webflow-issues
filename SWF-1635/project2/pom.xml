@@ -1,0 +1,369 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+<groupId>es.paranoid</groupId>
+<artifactId>aio</artifactId>
+<packaging>war</packaging>
+<version>0.1-SNAPSHOT</version>
+
+
+<!-- Project information -->
+
+<name>aio</name>
+<description> Social networking for autodidact and creative people who wishes sharing their products</description>
+
+ <!-- Personal information -->
+ 
+ <developers>
+ 	<developer>
+		<id>Rafael.Ruiz</id>
+		<name>Rafael Ruiz Tabares</name>
+		<email>rafaelruiztabares@gmail.com</email>
+		<timezone>GMT+01:00</timezone>
+		<roles>
+			<role>J2EE Developer</role>
+		</roles>	 	
+ 	</developer>
+ </developers>
+ 
+<!-- Repos -->
+
+<repositories>
+    
+    		<repository>
+			<id>spring-repository</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/milestone</url>
+		</repository>
+		<repository>
+			<id>primefaces-repository</id>
+			<name>Prime Technology Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>		
+		<repository>
+			<id>spring-snapshots</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/snapshot</url>
+		</repository>
+		
+	<repository>
+		<id>Central maven</id>
+		<url>http://repo1.maven.org/maven2/</url>
+	</repository>
+	
+	<repository>
+		<id>JBOSS Release</id>
+		<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+	</repository>
+	
+	<repository>
+   	<id>sonatype-snapshots</id>
+   	<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+	</repository>	
+</repositories>
+
+<!-- Properties -->
+
+<properties>
+	<aio.version>0.1-SNAPSHOT</aio.version>
+	<spring>4.0.3.RELEASE</spring>
+	<validation.api>1.1.0.Final</validation.api>
+	<hibernate.validator>5.0.3.Final</hibernate.validator>
+	<spring.security>3.2.4.RELEASE</spring.security>
+	<log4j2>2.0-rc1</log4j2>
+	<spring.webflow>2.4.0.RC1</spring.webflow>
+	<quartz>2.2.1</quartz>
+	<primefaces>5.0</primefaces>
+	<javaee>7.0</javaee>
+	<mojarra>2.2.5</mojarra>
+	<servlet>3.0</servlet>
+	<el>2.2.4</el>
+	<fileupload>1.3</fileupload>
+	<rewrite>2.0.10.Final</rewrite>
+	
+	<spring.social>1.0.3.RELEASE</spring.social>
+	<httpclient>4.3.2</httpclient>
+</properties>
+
+<!-- Libraries -->
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-framework-bom</artifactId>
+            <version>${spring}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+ 	</dependencies>
+</dependencyManagement>
+
+<dependencies>
+    
+    <!-- Spring webflow -->
+    
+    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>				
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency> 
+		
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>${spring.webflow}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security}</version>
+		</dependency>
+
+<!-- Spring -->
+	
+	 	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+	
+<dependency>
+   <groupId>commons-fileupload</groupId>
+   <artifactId>commons-fileupload</artifactId>
+   <version>1.2.1</version>
+</dependency>
+
+    
+<!-- Hibernate validator 5 , JSR-349 -->
+
+    <dependency>
+   	<groupId>org.hibernate</groupId>
+   	<artifactId>hibernate-validator</artifactId>
+   	<version>${hibernate.validator}</version>
+	</dependency>
+	
+	<!-- Upgrade to describe JSR-349 -->
+	
+	<dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+    <version>${validation.api}</version>
+	</dependency>
+  
+<!-- Log4j 2 -->
+
+	<dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-api</artifactId>
+		<version>${log4j2}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-core</artifactId>
+		<version>${log4j2}</version>
+	</dependency>
+	
+	 <dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-jcl</artifactId>
+		<version>${log4j2}</version>
+	</dependency>
+	
+	<dependency>
+	   <groupId>org.primefaces</groupId>
+	 	<artifactId>primefaces</artifactId>
+	 	<version>${primefaces}</version>
+	</dependency>
+		
+		
+	<dependency>
+	    <groupId>com.sun.faces</groupId>
+	    <artifactId>jsf-api</artifactId>
+	    <version>${mojarra}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.sun.faces</groupId>
+	    <artifactId>jsf-impl</artifactId>
+	    <version>${mojarra}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.0.1</version>
+	    <scope>provided</scope>
+	</dependency>
+</dependencies>
+
+<!-- Profiles -->
+	
+<profiles>
+	<profile>
+		<id>development</id>
+		
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+		<properties>
+			<filter.name>development-values.properties</filter.name>
+			<skipTests>true</skipTests>
+		</properties>
+		<build>
+			<finalName>aio</finalName>
+		</build>
+	</profile>
+
+	<profile>
+		<id>production</id>
+		
+		<properties>
+			<filter.name>production-values.properties</filter.name>
+			<skipTests>true</skipTests>
+		</properties>
+		<build>
+			<finalName>${project.name}-${project.version}</finalName>
+		</build>
+	</profile>
+	
+	<profile>
+		<id>test</id>
+		<properties>
+			<unity.properties>test.properties</unity.properties>
+			<skipTests>false</skipTests>
+		</properties>
+		<build>
+			<filters>
+				<filter>${user.dir}/module-persistence/src/test/resources/es/project/filter/${unity.properties}</filter>
+			</filters>
+			<testResources>
+				<testResource>
+					<filtering>true</filtering>
+					<targetPath>es/project/config</targetPath>
+					<directory>${user.dir}/module-persistence/src/test/resources/es/project/config</directory>
+	                <includes>
+	                	<include>*.properties</include>
+	                	<include>*.xml</include>
+	                </includes>
+				</testResource>
+				
+			</testResources>
+		</build>
+	</profile>
+</profiles>		
+
+
+<build>
+	
+	
+<!-- Plugins -->
+
+	<pluginManagement>
+		<plugins>
+			<plugin>
+    	    	<groupId>org.apache.maven.plugins</groupId>
+     	   	<artifactId>maven-compiler-plugin</artifactId>
+     	   	<version>3.1</version>
+     	   	<configuration>
+     	     		<source>1.7</source>
+     	     		<target>1.7</target>
+     	   	</configuration>
+			</plugin>
+		
+  			<plugin>
+    			<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-surefire-plugin</artifactId>
+    			<version>2.16</version>
+    			<configuration>
+    				<skipTests>${skipTests}</skipTests>
+    			</configuration>
+    			<dependencies>
+      			<dependency>
+        				<groupId>org.apache.maven.surefire</groupId>
+        				<artifactId>surefire-junit47</artifactId>
+        				<version>2.16</version>
+      			</dependency>
+    			</dependencies>
+  			</plugin>
+
+  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+          <webResources>
+            <resource>
+                <directory>src/main/resources/es/project/properties/JSR349</directory>
+                <includes>
+                    <include>*.properties</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+          </webResources>
+          <packagingExcludes>/WEB-INF/classes/es/project/filters/</packagingExcludes>
+          <includeEmptyDirectories>true</includeEmptyDirectories>
+        </configuration>
+      </plugin>
+		
+		<plugin>
+	 		<groupId>org.apache.maven.plugins</groupId>
+	 		<artifactId>maven-eclipse-plugin</artifactId>
+	 		<configuration>
+	 			<downloadSources>true</downloadSources>
+	 			<downloadJavadocs>false</downloadJavadocs>
+	 			<wtpmanifest>true</wtpmanifest>
+	 			<manifest>${basedir}/src/main/resources/META-INF/MANIFEST.MF</manifest>
+	  			<wtpversion>2.0</wtpversion>
+	  			<additionalBuildcommands>
+					<buildCommand>
+	    				<name>org.springframework.ide.eclipse.core.springbuilder</name>
+					</buildCommand>
+					<buildCommand>
+						<name>org.eclipse.m2e.core.maven2Builder</name>
+					</buildCommand>
+	  			</additionalBuildcommands>
+	  			<additionalProjectnatures>
+					<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					<projectnature>org.eclipse.m2e.core.maven2Nature</projectnature>
+					<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+					<nature>org.jboss.tools.jsf.jsfnature</nature>
+	  			</additionalProjectnatures>
+	  			<additionalProjectFacets>
+	  				<java>1.7</java>
+	  				<jst.web>3.1</jst.web>
+	  				<wst.jsdt.web>1.0</wst.jsdt.web>
+	  				<!-- <glassfish.web>4.0</glassfish.web> -->
+	  				<jst.jsf>2.2</jst.jsf>
+	  				<jst.jstl>1.2</jst.jstl>
+	  			</additionalProjectFacets>
+	 		</configuration>
+		</plugin>		
+		</plugins>
+	</pluginManagement>
+</build>
+</project>

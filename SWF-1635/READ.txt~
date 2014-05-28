@@ -1,0 +1,16 @@
+#######################
+     Instructions
+#######################
+
+
+
+====> Project1 folder
+
+It's a SWF 2.3 example downloaded from original source spring code. I've added a new flow folder called 'common' on '/WEB-INF/jsp' in which I handle
+
+NotMatchingTranslationException. This handler not working and browser return 404 error.
+
+
+=====> Project2 folder
+
+It's a custom SWF 2.4.1.RC1 example. Now, NotMatchingTranslationException works properly but when you click several times  over a unknow transition and then you click on a know transition the flow is gone and usually you must click again. NotMatchingTranslationException is handled on 'commons-header' folder on '/src/main/webapp/WEB-INF/flows'

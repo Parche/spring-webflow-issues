@@ -1,0 +1,97 @@
+@CHARSET "UTF-8";
+
+.accessContainer{
+	width:200px;
+	height:50px;
+	padding-top: 30%;
+	padding-left: 80%;
+}
+
+.advancedSearchContainer{
+	width: 185px;
+	height: 15px;
+	padding-top:61%;
+	padding-left: 31.15%; 
+}
+
+.centerContainer{
+	width: 67.1%;
+	height: auto;
+}
+
+.footerContainer{
+	position:fixed;
+	width: 89%;
+	height: 80px;
+	padding-right: 5.5%;
+	padding-left: 5.5%;
+}
+
+.headerContainer{
+	position:fixed;
+	width: 94.5%;
+	padding-left: 5.5%;
+	height: 115px;
+}
+
+.inMethods{}
+
+.leftContainer{
+	position:fixed;
+	width: 16.45%;
+	height: 440px;
+	max-height: 600px;
+}
+
+.loginMethod{
+	
+}
+
+.mainContainer{
+	position:absolute;
+	width: 89%;
+	height: inherit;
+	padding-right: 5.5%;
+	padding-left: 5.5%;
+}
+
+.outMethods{}
+
+.pageContainer{
+	max-width:  100%;
+	height: auto;
+}
+
+.rightContainer{
+	position:absolute;
+	width: 16.45%;
+	height: auto;
+}
+
+.searchContainer{
+	width: 400px;
+	height: 25px;
+	padding-left: 10%;
+	padding-top: 30%;
+}
+
+.searchImgContainer{
+	width: 25px;
+	height: 25px;
+	padding-left: 49.25%;
+	padding-top: 30%;
+}
+
+.signupMethod{}
+
+
+.userMenuContainer{
+	width: 200px;
+	height: 45px;
+	padding-left: 55.32%;
+	padding-top: 30%;
+}
+
+
+
+

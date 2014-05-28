@@ -1,0 +1,14 @@
+package es.project.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+@Configuration
+@Import(value={
+		DataAccessConfig.class,
+		WebMvcConfig.class,
+		WebFlowConfig.class
+	})
+public class AppConfig {
+
+}

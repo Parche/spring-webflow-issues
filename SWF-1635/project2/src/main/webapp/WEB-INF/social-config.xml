@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 	   xmlns:aop="http://www.springframework.org/schema/aop" 
+ 	   xmlns:context="http://www.springframework.org/schema/context"
+ 	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+ 	   					   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+ 	   					   http://www.springframework.org/schema/aop
+						   http://http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+  						   http://www.springframework.org/schema/context 
+  						   http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+ 
+	
+	<!-- ConnectionFactoryRegistry configuration -->
+	
+	<bean id="connectionFactoryLocator" 
+	      class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+	    <property name="connectionFactories">
+	        <list>
+	            <bean class="org.springframework.social.twitter.connect.TwitterConnectionFactory">
+	                <constructor-arg value="${twitter.consumerKey}" />
+	                <constructor-arg value="${twitter.consumerSecret}" />				
+	            </bean>
+	            <bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+	                <constructor-arg value="${facebook.clientId}" />
+	                <constructor-arg value="${facebook.clientSecret}" />				
+	            </bean>
+	        </list>
+	    </property>
+	</bean>
+	
+	<!-- Persisting connections for multiusers environment -->
+	
+	<bean id="usersConnectionRepository" 
+	      class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+	    <constructor-arg ref="dataSource" />
+	    <constructor-arg ref="connectionFactoryLocator" />
+	    <constructor-arg ref="textEncryptor" />
+	</bean>
+	
+	<!-- all operations on this repository are scoped relative to the "current user" that has
+		 authenticated with your local application -->
+		  
+	<bean id="connectionRepository" factory-method="createConnectionRepository" 
+	      factory-bean="usersConnectionRepository" scope="request">
+	    <!-- <constructor-arg value="#{request.userPrincipal.name}" /> -->
+	    <constructor-arg value="#{authenticationService.getAuthenticatedUsername()}" />
+	  <!--   <aop:scoped-proxy proxy-target-class="false" /> -->
+	</bean>
+	
+	<!-- Creating connections with ConnectionController, allow to associate social accounts to own account in app, so
+			users can sign using social accounts -->
+	
+	<bean class="org.springframework.social.connect.web.ConnectController">
+    <!-- relies on by-type autowiring for the constructor-args -->
+     <property name="applicationUrl" value="${application.secureUrl}" />
+	</bean>
+	
+	<!-- Handles the requests when users sign in to your app using -->
+	
+	<bean class="org.springframework.social.connect.web.ProviderSignInController">
+		<constructor-arg value="${application.secureUrl}" />
+    		<!-- relies on by-type autowiring for the constructor-args -->
+    		
+    	<!-- Sets the URL to redirect the user to if no local user account can be mapped when signing in using a provider -->
+		<property name="signUpUrl" value="/signup" />
+		<property name="applicationUrl" value="${application.secureUrl}" />
+		<!-- Sets the default URL to redirect the user to after signing in using a provider -->
+		<property name="postSignInUrl" value="/authenticate" />
+  	</bean>
+
+  
+   	 <!-- TextEncryptor configuration -->       
+	        
+	 <beans profile="dev">
+	     <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" 
+	         factory-method="noOpText" />
+	 </beans>
+	
+	 <beans profile="prod">
+	     <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" 
+	             factory-method="text">
+	         <constructor-arg value="${security.encryptPassword}" />
+	         <constructor-arg value="${security.encryptSalt}" />
+	     </bean>
+	 </beans>
+
+</beans>
+			

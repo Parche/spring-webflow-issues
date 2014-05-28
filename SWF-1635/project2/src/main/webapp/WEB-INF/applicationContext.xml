@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+									http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+									http://www.springframework.org/schema/context
+									http://www.springframework.org/schema/context/spring-context-4.0.xsd
+									http://www.springframework.org/schema/tx
+									http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+									http://www.springframework.org/schema/util 
+									http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+
+	<!-- Automatically detecting classes and registering bean definitions, @Repository and @Service, 
+		implicitly enables the functionality of <context:annotation-config> -->
+		
+	<context:component-scan base-package="es.project"/>
+	
+	<context:property-placeholder location="/WEB-INF/config/jdbc.properties"/>
+	
+	
+	<!-- Datasource configuration -->
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
+		p:driverClass="${jdbc.driverClassName}"
+		p:jdbcUrl="${jdbc.url}"
+		p:user="${jdbc.username}"
+		p:password="${jdbc.password}" />
+		
+	<!-- Session factory -->
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:packagesToScan="es.project.model">
+		
+		<property name="configLocation" value="/WEB-INF/hibernate.cfg.xml"/>
+
+	</bean>
+	
+	<!-- Use @Transaction annotations for managing transactions, proxy is true to use Class inject on services  -->    
+   <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
+   
+   <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+       <property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+	
+	<!-- 484 mirar si se puede hacer con JSF2, manejar formularios con upload files -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			
+			<!-- one of the properties available; the maximum file size in bytes -->
+			<property name="maxUploadSize" value="100000"/>
+	</bean>
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+ 	<import resource="security-config.xml"/>
+
+</beans>
